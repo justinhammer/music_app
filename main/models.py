@@ -75,4 +75,38 @@ class Albums(models.Model):
     def __unicode__(self):
         return self.album_title
 
-# class Tracks(models.Model):
+class Tracks(models.Model):
+    class Meta:
+        verbose_name_plural = 'Tracks'
+
+    track_id = models.IntegerField(null=True, blank=True)
+    track_title = models.CharField(max_length=255, null=True, blank=True)
+    track_url = models.CharField(max_length=255, null=True, blank=True)
+    track_image_file = models.ImageField(upload_to="track_images", null=True)
+    album = models.ForeignKey('main.Albums', null=True)
+    license_title = models.CharField(max_length=255, null=True, blank=True)
+    license_url = models.CharField(max_length=255, null=True, blank=True)
+    track_language_code = models.CharField(max_length=255, null=True, blank=True)
+    track_duration = models.CharField(max_length=255, null=True, blank=True)
+    track_number = models.IntegerField(null=True, blank=True)
+    track_disc_number = models.IntegerField(null=True, blank=True)
+    track_explicit = models.CharField(max_length=255, null=True, blank=True)
+    track_explicit_notes = models.CharField(max_length=255, null=True, blank=True)
+    track_copyright_c = models.CharField(max_length=255, null=True, blank=True)
+    track_copyright_p = models.CharField(max_length=255, null=True, blank=True)
+    track_composer = models.CharField(max_length=255, null=True, blank=True)
+    track_lyricist = models.CharField(max_length=255, null=True, blank=True)
+    track_publisher = models.CharField(max_length=255, null=True, blank=True)
+    track_instrumental = models.IntegerField(null=True, blank=True)
+    track_information = models.CharField(max_length=255, null=True, blank=True)
+    track_date_recorded = models.CharField(max_length=255, null=True, blank=True)
+    track_comments = models.CharField(max_length=255, null=True, blank=True)
+    track_favorites = models.IntegerField(null=True, blank=True)
+    track_listens = models.IntegerField(null=True, blank=True)
+    track_interest = models.IntegerField(null=True, blank=True)
+    track_bit_rate = models.IntegerField(null=True, blank=True)
+    track_date_created = models.CharField(max_length=255, null=True, blank=True)
+    track_file = models.CharField(max_length=255, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.album_title
