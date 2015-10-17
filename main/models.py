@@ -107,6 +107,8 @@ class Tracks(models.Model):
     track_bit_rate = models.IntegerField(null=True, blank=True)
     track_date_created = models.CharField(max_length=255, null=True, blank=True)
     track_file = models.CharField(max_length=255, null=True, blank=True)
+    license_image_file = models.ImageField(upload_to="license_images", null=True)
+    licencse_image_file_large = models.ImageField(upload_to="license_images_large", null=True)
 
     def __unicode__(self):
         return self.album_title
