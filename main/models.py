@@ -73,7 +73,7 @@ class Albums(models.Model):
     album_image_file = models.ImageField(upload_to="album_images", null=True)
 
     def __unicode__(self):
-        return self.album_title
+        return unicode(self.album_title)
 
 class Tracks(models.Model):
     class Meta:
@@ -98,7 +98,7 @@ class Tracks(models.Model):
     track_lyricist = models.CharField(max_length=255, null=True, blank=True)
     track_publisher = models.CharField(max_length=255, null=True, blank=True)
     track_instrumental = models.IntegerField(null=True, blank=True)
-    track_information = models.CharField(max_length=255, null=True, blank=True)
+    track_information = models.TextField(null=True, blank=True)
     track_date_recorded = models.CharField(max_length=255, null=True, blank=True)
     track_comments = models.CharField(max_length=255, null=True, blank=True)
     track_favorites = models.IntegerField(null=True, blank=True)
@@ -111,4 +111,4 @@ class Tracks(models.Model):
     license_image_file_large = models.ImageField(upload_to="license_images_large", null=True)
 
     def __unicode__(self):
-        return self.album_title
+        return unicode(self.track_title)
