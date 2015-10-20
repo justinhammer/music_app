@@ -1,0 +1,21 @@
+<!--{{ object_list }}
+
+<br><br>
+
+
+custom context name 
+{% for artist in artists %}
+
+{{ artist.artist_name }}<br>
+
+
+{% endfor %}-->
+
+
+<!-- default context name -->
+{% for object in object_list %}
+
+<a href="/artist_detail/{{ object.artist_name }}/">{{ object.artist_name }}</a>
+<br>
+
+{% endfor %}

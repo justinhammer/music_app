@@ -23,5 +23,13 @@ urlpatterns = [
     url(r'^genre_list/$', views.GenreListView.as_view()),
     url(r'^genre_detail/(?P<slug>.+)/$', views.GenreDetailView.as_view()),
     url(r'^genre_create/$', views.GenreCreateView.as_view()),
-
+    url(r'^album_list/$', views.AlbumListView.as_view()),
+    url(r'^album_detail/(?P<slug>.+)/$', views.AlbumDetailView.as_view()),
+    url(r'^album_create/$', views.AlbumCreateView.as_view()),
+    url(r'^artist_list/$', views.ArtistListView.as_view()),
+    url(r'^artist_detail/(?P<slug>.+)/$', views.ArtistDetailView.as_view()),
+    url(r'^artist_create/$', views.ArtistCreateView.as_view()),
+    url(r'^track_list/$', views.TrackListView.as_view()),
+    url(r'^track_detail/(?P<slug>.+)/$', views.TrackDetailView.as_view()),
+    url(r'^track_create/$', views.TrackCreateView.as_view()),
 ]

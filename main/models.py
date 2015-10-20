@@ -75,6 +75,7 @@ class Albums(models.Model):
     def __unicode__(self):
         return unicode(self.album_title)
 
+
 class Tracks(models.Model):
     class Meta:
         verbose_name_plural = 'Tracks'

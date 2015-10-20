@@ -5,10 +5,12 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from main.models import Genres, Artists, Albums, Tracks
 
+
 class GenreListView(ListView):
     model = Genres
     template_name = 'genre_list.html'
     context_object_name = 'genres'
+
 
 class GenreDetailView(DetailView):
     model = Genres
@@ -31,7 +33,7 @@ class ArtistListView(ListView):
 class ArtistDetailView(DetailView):
     model = Artists
     slug_field = 'artist_name'
-    template_name = 'genre_detail.html'
+    template_name = 'artist_detail.html'
 
 
 class ArtistCreateView(CreateView):
@@ -48,7 +50,7 @@ class AlbumListView(ListView):
 
 class AlbumDetailView(DetailView):
     model = Albums
-    slug_field = 'album_name'
+    slug_field = 'album_title'
     template_name = 'album_detail.html'
 
 
@@ -59,14 +61,14 @@ class AlbumCreateView(CreateView):
 
 
 class TrackListView(ListView):
-    model Tracks
+    model = Tracks
     template_name = 'track_list.html'
     context_object_name = 'tracks'
 
 
 class TrackDetailView(DetailView):
     model = Tracks
-    slug_field = 'track_name'
+    slug_field = 'track_title'
     template_name = 'track_detail.html'
 
 
