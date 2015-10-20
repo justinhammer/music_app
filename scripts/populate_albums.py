@@ -3,7 +3,6 @@ import requests
 import os, sys
 from unidecode import unidecode
 from PIL import Image
-from StringIO import StringIO
 
 sys.path.append("..")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
@@ -11,19 +10,22 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 import django
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.conf import settings
 
 from main.models import Albums, Artists, Genres
 
 django.setup()
 
 Albums.objects.all().delete()
-artists_in_db = Artists.objects.all()
+# artists_in_db = Artists.objects.all()
 
-for artist in artists_in_db:
-    albums_url = "https://freemusicarchive.org/api/get/albums.json?api_key=PDCK2LQJIAKLRZFL&artist_id="
-    current_artist_id = str(artist.artist_id)
-    url_w_artist_id = str(albums_url) + current_artist_id
-    response = requests.get(url_w_artist_id)
+for artist in Artists.objects.all():
+    # albums_url = "https://freemusicarchive.org/api/get/albums.json?api_key=PDCK2LQJIAKLRZFL&artist_id="
+    # current_artist_id = str(artist.artist_id)
+    # url_w_artist_id = str(albums_url) + current_artist_id
+
+    param_dict = {'api_key': settings.FMAKEY, 'limit': 100, 'artist_id': artist.artist_id}
+    response = requests.get('http://freemusicarchive.org/api/get/albums/json', params=param_dict)
     response_dict = response.json()
 
     for data in response_dict['dataset']:
