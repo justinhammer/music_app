@@ -18,6 +18,7 @@ django.setup()
 response = requests.get('https://freemusicarchive.org/api/get/tracks.json?api_key=PDCK2LQJIAKLRZFL&limit=5000')
 
 try:
+    Tracks.objects.all().delete()
     response_dict = response.json()
 
     for data in response_dict['dataset']:
@@ -95,31 +96,36 @@ try:
                 new_track.album = alb
 
                 try:
-                    track_image_file = request.get(data.get('track_image_file'))
+                    new_track_image_file = requests.get(data.get('track_image_file'))
                     temp_image = NamedTemporaryFile(delete=True)
-                    temp_image.write(track_image_file.content)
-                    track.track_image_file = File(temp_image)
+                    temp_image.write(new_track_image_file.content)
+                    img_name = "%s_track_image_file.jpg" % new_track.track_id
+                    new_track.track_image_file.save(img_name, File(temp_image))
                 except Exception as e:
+                    print new_track.track_id
                     print e
 
                 try:
-                    license_image_file = request.get(data.get('license_image_file'))
+                    new_license_image_file = requests.get(data.get('license_image_file'))
                     temp_image = NamedTemporaryFile(delete=True)
-                    temp_image.write(license_image_file.content)
-                    track.license_image_file = File(temp_image)
+                    temp_image.write(new_license_image_file.content)
+                    img_name = "%s_license_image_file.jpg" % new_track.track_id
+                    new_track.license_image_file.save(img_name, File(temp_image)) 
                 except Exception as e:
+                    print new_track.track_id
                     print e
 
                 try:
-                    license_image_file_large = request.get(data.get('license_image_file_large'))
-                    temp_image - NamedTemporaryFile(delete=True)
-                    temp_image.write(license_image_file_large.content)
-                    track.license_image_file_large = File(temp_image)
+                    new_license_image_file_large = requests.get(data.get('license_image_file_large'))
+                    temp_image = NamedTemporaryFile(delete=True)
+                    temp_image.write(new_license_image_file_large.content)
+                    img_name = "%s_license_image_file_large.jpg" % new_track.track_id
+                    new_track.license_image_file_large.save(img_name, File(temp_image))
                 except Exception as e:
+                    print new_track.track_id
                     print e
 
-                if new_track.track_title:
-                    new_track.save()
+                new_track.save()
 
             else:
                 pass
