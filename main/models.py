@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.http import urlquote
 from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.utils import timezone
 
 
 class Genres(models.Model):
@@ -73,7 +74,7 @@ class Albums(models.Model):
     album_tracks = models.IntegerField(null=True, blank=True)
     album_listens = models.IntegerField(null=True, blank=True)
     album_date_created = models.CharField(max_length=255, null=True, blank=True)
-    album_image_file = models.ImageField(upload_to="album_images", null=True)
+    album_image_file = models.ImageField(upload_to='album_images', null=True)
 
     def __unicode__(self):
         return unicode(self.album_title)
@@ -119,8 +120,12 @@ class Tracks(models.Model):
 
 
 class CustomUserManager(BaseUserManager):
-    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, username, password, is_staff, is_superuser, **extra_fields):
         now = timezone.now()
+        
+        if username != None:
+            email = username
+
         if not email:
             raise ValueError("Email must be set")
         email = self.normalize_email(email)
@@ -135,10 +140,10 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password, **extra_fields):
-        return self._create_user(email, password, False, False, **extra_fields)
+    def create_user(self, email=None, username=None, password=None, **extra_fields):
+        return self._create_user(email, username, password, False, False, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email, username, password, **extra_fields):
         return self._create_user(email, password, True, True, **extra_fields)
 
 

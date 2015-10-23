@@ -1,10 +1,35 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<!-- Page Content -->
+    <div class="container">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Track Details<br>
+                    <small>
+                        {% if user.is_anonymous %}
+                            <a href="{% url 'login_view' %}">login</a>
+                        {% else %}
+                            {{ user }}
+                            </br>
+                            <a href="{% url 'logout_view' %}?next=/">logout</a>
+                        {% endif %}
+                    </small>
+                </h1>
+            </div>
+        </div>    
+    </div>
+
+<div class="container">
 ID: {{ object.track_id }}<br>
-Track Title: {{ object.track_title }}<br>
-URL: {{ object.track_url }}<br>
-Image File: {{ object.image_file }}<br>
-Album: {{ object.album }}<br>
+Track Title: <strong>{{ object.track_title }}</strong><br>
+<a href="{{ object.track_url }}">Listen Here!</a><br>
+<br>
+<br>
+Album: <a href="/album_detail/{{ tracks.album }}">{{ object.album }}</a><br>
 License Title: {{ object.license_title }}<br>
-License URL: {{ object.license_url }}<br>
+License URL: <a href="{{ object.license_url }}">{{ object.license_url }}</a><br>
 Language Code: {{ object.track_language_code }}<br>
 Track Duration: {{ object.track_duration }}<br>
 Track Number: {{ object.track_number }}<br>
@@ -19,12 +44,8 @@ Publisher: {{ object.track_publisher }}<br>
 Instrumental: {{ object.track_instrumental }}<br>
 Track Information: {{ object.track_information }}<br>
 Date Recorded: {{ object.track_date_recorded }}<br>
-Comments: {{ object.track_comments }}<br>
-# of Favorites: {{ object.track_favorites }}<br>
-# of Listens: {{ object.track_listens }}<br>
-Interests: {{ object.track_interest }}<br>
 Bit Rate: {{ object.track_bit_rate }}<br>
 Date Created: {{ object.track_date_recorded }}<br>
-Track File: {{ object.track_file }}<br>
-License Image File: {{ object.track_license_image_file }}<br>
-License Image File Large: {{ object.track_license_image_file_large}}<br>
+</div>
+
+{% endblock body %}

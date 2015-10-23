@@ -1,8 +1,32 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<!-- Page Content -->
+    <div class="container">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Artists Details<br>
+                    <small>
+                        {% if user.is_anonymous %}
+                            <a href="{% url 'login_view' %}">login</a>
+                        {% else %}
+                            {{ user }}
+                            </br>
+                            <a href="{% url 'logout_view' %}?next=/">logout</a>
+                        {% endif %}
+                    </small>
+                </h1>
+            </div>
+        </div>    
+    </div>
+
+<div class="container">
 ID: {{ object.artist_id }}<br>
 Handle: {{ object.artist_handle }}<br>
 URL: {{ object.artist_url }}<br>
 Name: {{ object.artist_name }}<br>
-Bio: {{ object.artist_bio }}<br>
+Bio: {{ object.artist_bio|safe }}<br>
 Members: {{ object.artist_members }}<br>
 Artist Website: {{ object.artist_website }}<br>
 Wikipedia Page: {{ object.artist_wikipedia_page }}<br>
@@ -18,3 +42,6 @@ Flattr Name: {{ object.artist_flattr_name }}<br>
 Paypal Name: {{ object.artist_paypal_name }}<br>
 Image File: {{ object.artist_image_file }}<br>
 Location: {{object.artist_location }}<br>
+</div>
+
+{% endblock body %}

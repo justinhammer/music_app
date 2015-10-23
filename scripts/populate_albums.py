@@ -24,8 +24,8 @@ for artist in Artists.objects.all():
     # current_artist_id = str(artist.artist_id)
     # url_w_artist_id = str(albums_url) + current_artist_id
 
-    param_dict = {'api_key': settings.FMAKEY, 'limit': 100, 'artist_id': artist.artist_id}
-    response = requests.get('http://freemusicarchive.org/api/get/albums/json', params=param_dict)
+    param_dict = {'api_key': settings.FMAKEY, 'limit': 3500, 'artist_id': artist.artist_id}
+    response = requests.get('http://freemusicarchive.org/api/get/albums.json', params=param_dict)
     response_dict = response.json()
 
     for data in response_dict['dataset']:

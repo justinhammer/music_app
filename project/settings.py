@@ -28,6 +28,20 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'main.CustomUser'
+SOCIAL_AUTH_USER_MODEL = 'main.CustomUser'
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/' 
+SOCIAL_AUTH_LOGIN_URL = 'http://127.0.0.1:8000/login'
+
+SOCIAL_AUTH_TWITTER_KEY = 'UycxGj8SpTIY8nIisz7LmSzUS' 
+SOCIAL_AUTH_TWITTER_SECRET = '4AIhpNkc9N3g2eVTSc7paZfTv6ypz8GJkV8V0MXmZ0eAZlm52X'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '703309349803596'
+SOCIAL_AUTH_FACEBOOK_SECRET = '941183a69855ff49e1228480b88fbad5'
+
+SOCIAL_AUTH_INSTAGRAM_KEY = 'a79f8c3c553c4c3082250cee418bf975'
+SOCIAL_AUTH_INSTAGRAM_SECRET = '55acdbf65ce041aaabf8d80361c8ea04'
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -38,6 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,6 +64,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (  
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.instagram.InstagramOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'project.urls'
@@ -64,6 +87,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -105,3 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

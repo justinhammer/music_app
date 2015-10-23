@@ -1,9 +1,30 @@
-<!--{{ object_list }}
+{% extends 'base.html' %}
+{% block body %}
+
+<!-- Page Content -->
+    <div class="container">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Track List<br>
+                    <small>
+                        {% if user.is_anonymous %}
+                            <a href="{% url 'login_view' %}">login</a>
+                        {% else %}
+                            {{ user }}
+                            </br>
+                            <a href="{% url 'logout_view' %}?next=/">logout</a>
+                        {% endif %}
+                    </small>
+                </h1>
+            </div>
+        </div>    
+    </div>
 
 <br><br>
 
 
-custom context name
+<!--{{ object_list }} custom context name
 {% for genre in genres %}
 
 {{ genre.track_title }}<br>
@@ -13,9 +34,31 @@ custom context name
 
 
 <!-- default context name -->
+<div class="container">
 {% for object in object_list %}
 
 <a href="/track_detail/{{ object.track_title }}/">{{ object.track_title }}</a>
 <br>
 
 {% endfor %}
+</div>
+
+<div class="container">
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/track_list/?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                {% if page_obj.has_next %}
+                    <a href="/track_list/?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock body %}

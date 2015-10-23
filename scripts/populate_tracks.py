@@ -16,9 +16,9 @@ from main.models import Albums, Artists, Tracks
 django.setup()
 
 response = requests.get('https://freemusicarchive.org/api/get/tracks.json?api_key=PDCK2LQJIAKLRZFL&limit=5000')
+Tracks.objects.all().delete()
 
 try:
-    Tracks.objects.all().delete()
     response_dict = response.json()
 
     for data in response_dict['dataset']:
