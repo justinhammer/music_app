@@ -50,4 +50,5 @@ urlpatterns = [
     url(r'^login/$', 'main.views.login_view', name='login_view'),
     url(r'^signup/$', 'main.views.signup', name='signup_view'),
     url(r'^register/$', CreateView.as_view(template_name='register.html', form_class=CustomUserCreationForm, success_url='/')),
+    url(r'^contact_view/$', 'main.views.contact_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

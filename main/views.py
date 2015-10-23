@@ -8,10 +8,11 @@ from django.views.generic.edit import CreateView
 from main.models import Genres, Artists, Albums, Tracks, CustomUser
 import requests
 
-from main.forms import UserSignUp, UserLogin
+from main.forms import UserSignUp, UserLogin, ContactForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.core.mail import send_mail
 
 
 def contact_view(request):
