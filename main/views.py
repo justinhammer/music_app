@@ -15,6 +15,11 @@ from django.db import IntegrityError
 from django.core.mail import send_mail
 
 
+def home_view(request):
+
+    return render_to_response('home.html')
+
+
 def contact_view(request):
 
     context = {}

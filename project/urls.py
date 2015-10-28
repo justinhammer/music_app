@@ -32,8 +32,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'', include('social.apps.django_app.urls', namespace='social')),
-
-    url(r'^genre_list/$', views.GenreListView.as_view(), name='home'),
+    url(r'^home_view/$', 'main.views.home_view', name='home'),
+    url(r'^genre_list/$', views.GenreListView.as_view()),
     url(r'^genre_detail/(?P<slug>.+)/$', views.GenreDetailView.as_view()),
     url(r'^genre_create/$', views.GenreCreateView.as_view()),
     url(r'^album_list/$', views.AlbumListView.as_view()),
