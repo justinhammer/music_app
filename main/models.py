@@ -122,7 +122,7 @@ class Tracks(models.Model):
 class CustomUserManager(BaseUserManager):
     def _create_user(self, email, username, password, is_staff, is_superuser, **extra_fields):
         now = timezone.now()
-        
+
         if username != None:
             email = username
 

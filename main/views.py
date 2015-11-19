@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.conf import settings
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -14,10 +14,35 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.core.mail import send_mail
 
+from main.serializers import GenreSerializer, ArtistSerializer, AlbumSerializer, TrackSerializer
+from rest_framework import generics
+
 
 def home_view(request):
 
     return render_to_response('home.html')
+
+
+def json_response(request):
+    search_string = request.GET.get('search', '')
+
+    objects = Artists.objects.filter(artist_name__icontains=search_string)
+
+    object_list = []
+
+    for obj in objects:
+        object_list.append(obj.artist_name)
+
+    return JsonResponse(object_list, safe=False)
+
+
+def ajax_search(request):
+
+    context = {}
+
+
+
+    return render_to_response('ajax_template.html', context, context_instance=RequestContext(request))
 
 
 def contact_view(request):
@@ -50,6 +75,7 @@ def contact_view(request):
         context['form'] = form
 
     return render_to_response('contact_view.html', context, context_instance=RequestContext(request))
+
 
 def signup(request):
 
@@ -111,6 +137,46 @@ def login_view(request):
             context['valid'] = "Please enter a User Name"
 
     return render_to_response('login.html', context, context_instance=RequestContext(request))
+
+
+class GenreList(generics.ListCreateAPIView):
+    queryset = Genres.objects.all()
+    serializer_class = GenreSerializer
+
+
+class GenreDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Genres.objects.all()
+    serializer_class = GenreSerializer
+
+
+class AlbumList(generics.ListCreateAPIView):
+    queryset = Albums.objects.all()
+    serializer_class = AlbumSerializer
+
+
+class AlbumDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Albums.objects.all()
+    serializer_class = AlbumSerializer
+
+
+class ArtistList(generics.ListCreateAPIView):
+    queryset = Artists.objects.all()
+    serializer_class = ArtistSerializer
+
+
+class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Artists.objects.all()
+    serializer_class = ArtistSerializer
+
+
+class TrackList(generics.ListCreateAPIView):
+    queryset = Tracks.objects.all()
+    serializer_class = TrackSerializer
+
+
+class TrackDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tracks.objects.all()
+    serializer_class = TrackSerializer
 
 
 class GenreListView(ListView):

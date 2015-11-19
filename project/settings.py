@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'main',
     'social.apps.django_app.default',
     'crispy_forms',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,7 +68,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-AUTHENTICATION_BACKENDS = (  
+AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'social.backends.google.GoogleOAuth2',
     'social.backends.twitter.TwitterOAuth',

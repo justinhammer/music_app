@@ -17,19 +17,32 @@ from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-
 from django.views.generic.edit import CreateView
+
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from main import views
 from main.forms import CustomUserCreationForm
-from django.contrib.auth.forms import UserCreationForm
 
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    url(r'^$', views.GenreListView.as_view()),
+    url(r'^$', ('main.views.home_view')),
 
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^genres/$', views.GenreList.as_view()),
+    url(r'^genres/(?P<pk>[0-9]+)/$', views.GenreDetail.as_view()),
+    url(r'^albums/$', views.AlbumList.as_view()),
+    url(r'^albums/(?P<pk>[0-9]+)/$', views.AlbumDetail.as_view()),
+    url(r'^artists/$', views.ArtistList.as_view()),
+    url(r'^artists/(?P<pk>[0-9]+)/$', views.ArtistDetail.as_view()),
+    url(r'^tracks/$', views.TrackList.as_view()),
+    url(r'^tracks/(?P<pk>[0-9]+)/$', views.TrackDetail.as_view()),
+
+    url(r'^json_response/$', 'main.views.json_response'),
+    url(r'^ajax_search/$', 'main.views.ajax_search'),
 
     url(r'', include('social.apps.django_app.urls', namespace='social')),
     url(r'^home_view/$', 'main.views.home_view', name='home'),
@@ -52,3 +65,5 @@ urlpatterns = [
     url(r'^register/$', CreateView.as_view(template_name='register.html', form_class=CustomUserCreationForm, success_url='/')),
     url(r'^contact_view/$', 'main.views.contact_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns = format_suffix_patterns(urlpatterns)
